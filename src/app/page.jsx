@@ -1,57 +1,61 @@
 "use client";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import {
-  Banner,
-  ClientSlide,
-  MarqueeText,
-  AnimatPara,
-  About,
-  Whatwedo,
-  Clients,
-  Testimonials,
-  MovingWords,
-  GetinTouch,
-  OurWOrks,
-  OurWOrk2,
-  WorkWithUs,
-} from "../components";
-import { Suspense } from "react";
+
 import Head from "next/head";
-import DynamicPopupform from "../components/home/designs/popUpform";
-import { Helmet } from "react-helmet";
 import { LogoDO } from "../../public/images";
+import Image from "next/image";
 
-const DynamicBanner = dynamic(() => import("../components/home/banner/banner"));
-const DynamicMarqueeText = dynamic(() =>
-  import("../components/home/designs/marqueText")
-);
-const DynamicAbout = dynamic(() => import("../components/home/about/index"));
-const DynamicService = dynamic(() =>
-  import("../components/home/designs/whatwedo")
-);
-const DynamicOurwork2 = dynamic(() =>
-  import("../components/home/designs/ourWorks2")
-);
-const DynamicClients = dynamic(() =>
-  import("../components/home/designs/clients")
-);
-const DynamicTestimonials = dynamic(() =>
-  import("../components/home/designs/Testimonials")
-);
-const DynamicWorkwithUs = dynamic(() =>
-  import("../components/home/designs/workWithUs")
-);
-const DynamicFaq = dynamic(() =>
-  import("../components/home/faq/faq")
-);
+// Lazy load components with proper loading states
+const DynamicPopupform = dynamic(() => import("../components/home/designs/popUpform"), {
+  loading: () => <div className="min-h-[50px]"></div>,
+  ssr: false
+});
 
-const ContactForm = dynamic(() =>
-  import("../components/home/designs/ContactForm")
-);
-const ContactButton = dynamic(() =>
-  import("../components/home/designs/ContactButton")
-);
+const DynamicBanner = dynamic(() => import("../components/home/banner/banner"), {
+  loading: () => <div className="min-h-[300px] bg-gray-100"></div>,
+  ssr: true // Keep SSR for LCP component
+});
+
+const DynamicMarqueeText = dynamic(() => import("../components/home/designs/marqueText"), {
+  loading: () => <div className="min-h-[50px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicAbout = dynamic(() => import("../components/home/about/index"), {
+  loading: () => <div className="min-h-[200px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicService = dynamic(() => import("../components/home/designs/whatwedo"), {
+  loading: () => <div className="min-h-[200px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicOurwork2 = dynamic(() => import("../components/home/designs/ourWorks2"), {
+  loading: () => <div className="min-h-[200px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicClients = dynamic(() => import("../components/home/designs/clients"), {
+  loading: () => <div className="min-h-[150px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicTestimonials = dynamic(() => import("../components/home/designs/Testimonials"), {
+  loading: () => <div className="min-h-[150px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicFaq = dynamic(() => import("../components/home/faq/faq"), {
+  loading: () => <div className="min-h-[150px] bg-gray-50"></div>,
+  ssr: false
+});
+
+const DynamicWorkwithUs = dynamic(() => import("../components/home/designs/workWithUs"), {
+  loading: () => <div className="min-h-[150px] bg-gray-50"></div>,
+  ssr: false
+});
 
 export default function Home() {
   useEffect(() => {
@@ -233,50 +237,34 @@ export default function Home() {
 
 
       <main>
-        <DynamicPopupform />
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicBanner />
-        </Suspense>
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicMarqueeText />
-        </Suspense>
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicAbout />
-        </Suspense>
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicService />
-        </Suspense>
-        <Suspense fallback={<p>Loading data...</p>}>
-          {/* <OurWOrks /> */}
-          <DynamicOurwork2 />
-        </Suspense>
-        <Suspense>
-          <DynamicClients />
-        </Suspense>
-        {/* <AnimatPara/> */}
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicTestimonials />
-        </Suspense>
-        {/* Faq section */}
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicFaq />
-        </Suspense>
-        {/* <Clients/> */}
-        <Suspense fallback={<p>Loading data...</p>}>
-          <div className="bg-white relative" id="contact-form">
-            <img
-              className=" w-60 xl:h-full xl:w-full absolute top-[50%] left-[50%] -translate-x-[50%] object-contain -translate-y-[50%] opacity-5 z-10"
-              src={LogoDO.src}
-              alt=""
+        <DynamicBanner />
+        <DynamicMarqueeText />
+        <DynamicAbout />
+        <DynamicService />
+        <DynamicOurwork2 />
+        <DynamicClients />
+        <DynamicTestimonials />
+        <DynamicFaq />
+        <div className="bg-white relative" id="contact-form">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 xl:w-full opacity-5 z-10">
+            <Image
+              src={LogoDO}
+              alt="DO Studio Logo"
+              priority={false}
+              width={240}
+              height={240}
+              className="object-contain"
             />
-            <DynamicWorkwithUs />
           </div>
-        </Suspense>
+          <DynamicWorkwithUs />
+        </div>
+        <DynamicPopupform />
         {/* <Suspense fallback={<p>Loading data...</p>}>
           <ContactButton />
         </Suspense> */}
-        {/* <GetinTouch/>
-      <MovingWords/> */}      </main>
+          {/* <GetinTouch/>
+        <MovingWords/> */}
+      </main>
     </>
   );
 }
