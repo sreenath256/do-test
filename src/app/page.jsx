@@ -233,7 +233,7 @@ export default function Home() {
 
 
       <main>
-       
+        <h1 className="text-5xl">Hello dummy text</h1>
       </main>
     </>
   );
