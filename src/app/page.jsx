@@ -234,9 +234,7 @@ export default function Home() {
 
       <main>
         <DynamicPopupform />
-        <Suspense fallback={<p>Loading data...</p>}>
-          <DynamicBanner />
-        </Suspense>
+      
         <Suspense fallback={<p>Loading data...</p>}>
           <DynamicMarqueeText />
         </Suspense>
